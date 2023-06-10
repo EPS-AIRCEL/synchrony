@@ -1,6 +1,7 @@
 package assignment.controller;
 
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import assignment.json.PhotoData;
 import assignment.services.ImageService;
 
 @RestController
@@ -34,14 +37,18 @@ public class ImageController {
     }
     
     @DeleteMapping("image/{id}")
-    public Object deleteImage(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<?>  deleteImage(@PathVariable("id") String id) throws Exception {
       LOGGER.info("delete called for id", id);
-      return imageService.deleteImage(id);
+      imageService.deleteImage(id);
+      return ResponseEntity.status(HttpStatus.OK).body("Photo has been deleted");
     }
     
     @PostMapping("image")
-    public Object uploadImage(@RequestParam("image") MultipartFile image) throws Exception {
-      return imageService.uploadImage(image);
+    public ResponseEntity<?>  uploadImage(@RequestParam("image") MultipartFile image) throws Exception {
+    	 LOGGER.info("Upload image called");
+     PhotoData data=imageService.uploadImage(image);
+     return new ResponseEntity<PhotoData>(data, HttpStatus.OK);
+    	}
     }
     
-}
+

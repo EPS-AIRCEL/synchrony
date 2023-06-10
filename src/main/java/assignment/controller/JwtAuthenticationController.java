@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import assignment.config.JwtTokenUtil;
 import assignment.model.JwtResponse;
 import assignment.model.UserDto;
-import assignment.model.UserRequest;
 import assignment.repository.UserRepository;
 import assignment.services.JwtUserDetailsService;
 
